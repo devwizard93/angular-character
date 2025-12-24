@@ -1,0 +1,52 @@
+.preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fire-wrapper {
+   position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* FUEGO DETRÁS */
+.fire-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  /* fuego hacia afuera */
+  background: radial-gradient(circle,
+      rgba(255, 120, 0, 0.9),
+      rgba(255, 60, 0, 0.6),
+      rgba(255, 0, 0, 0.3),
+      transparent);
+  filter: blur(14px);
+  z-index: -1;
+  animation: firePulse 1.6s infinite alternate;
+}
+
+/* Imagen intacta */
+.character-preview {
+  width: 220px;
+  height: 220px;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.character-preview:hover {
+  transform: scale(1.05);
+}
+
+@keyframes firePulse {
+  from {
+    opacity: 0.6;
+    transform: scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
