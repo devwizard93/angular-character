@@ -1,3 +1,9 @@
+.character-list {
+  max-height: 180px; /* aprox 3 items */
+  overflow-y: auto;
+}
+
+
 .preview-container {
   display: flex;
   justify-content: center;
@@ -49,4 +55,7 @@
     opacity: 1;
     transform: scale(1.05);
   }
+
+
+  
 }

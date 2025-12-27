@@ -14,6 +14,8 @@ import { Character, CharacterClass } from './models/character.model';
 export class CharacterComponent implements OnInit {
 
   characters: Character[] = [];
+  errorMessage: string = '';
+
 
   newCharacter: Character = {
     name: '',
@@ -42,26 +44,41 @@ export class CharacterComponent implements OnInit {
   }
 
   save(): void {
-    this.service.create(this.newCharacter).subscribe(() => {
+  this.service.create(this.newCharacter).subscribe({
+    next: () => {
+      // Éxito
       this.load();
       this.newCharacter = { name: '', characterClass: 'dark-knight' };
-    });
-  }
+      this.errorMessage = ''; // Limpiar mensaje de error
+    },
+    error: (err) => {
+      // Verificar si es un error 400
+      if (err.status === 400) {
+        // Capturar mensaje enviado desde el backend
+        this.errorMessage = err.error?.message || 'Error de validación';
+      } else {
+        // Otros errores
+        this.errorMessage = 'Ocurrió un error inesperado';
+      }
+    }
+  });
+}
+
 
 
   characterImages: Record<CharacterClass, string> = {
-  'dark-knight': 'dark-knight.jpeg',
-  'dark-wizard': 'dark-wizard.jpeg',
-  'fairy-elf': 'fairy-elf.jpeg',
-  'magic-gladiator': 'magic-gladiator.jpeg',
-  'dark-lord': 'dark-lord.jpg',
-  'summoner': 'summoner.jpg',
-  'rage-fighter': 'rage-fighter.jpg'
-};
+    'dark-knight': 'dark-knight.jpeg',
+    'dark-wizard': 'dark-wizard.jpeg',
+    'fairy-elf': 'fairy-elf.jpeg',
+    'magic-gladiator': 'magic-gladiator.jpeg',
+    'dark-lord': 'dark-lord.jpg',
+    'summoner': 'summoner.jpg',
+    'rage-fighter': 'rage-fighter.jpg'
+  };
 
-get characterImage(): string {
-  return `assets/characters/${this.characterImages[this.newCharacter.characterClass]}`;
-}
+  get characterImage(): string {
+    return `assets/characters/${this.characterImages[this.newCharacter.characterClass]}`;
+  }
 
 }
 //Controla la vista y la logica de la UI

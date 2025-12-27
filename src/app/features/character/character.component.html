@@ -1,6 +1,6 @@
 <div class="container mt-4">
 
-    <!-- TÍTULO -->
+  <!-- TÍTULO -->
   <h1 class="text-center mb-4 fw-bold">
     Create Character
   </h1>
@@ -15,23 +15,26 @@
     </select>
 
     <button class="btn btn-primary">Guardar</button>
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
   </form>
 
- <ul class="list-group mb-3">
-  <li class="list-group-item fw-bold">
-    <div class="row">
-      <div class="col-6">Nombre</div>
-      <div class="col-6">Clase</div>
-    </div>
-  </li>
+  <ul class="list-group character-list mb-3">
+    <li class="list-group-item fw-bold">
+      <div class="row">
+        <div class="col-6">Nombre</div>
+        <div class="col-6">Clase</div>
+      </div>
+    </li>
 
-  <li class="list-group-item" *ngFor="let c of characters">
-    <div class="row">
-      <div class="col-6">{{ c.name }}</div>
-      <div class="col-6">{{ c.characterClass }}</div>
-    </div>
-  </li>
-</ul>
+    <li class="list-group-item" *ngFor="let c of characters">
+      <div class="row">
+        <div class="col-6">{{ c.name }}</div>
+        <div class="col-6">{{ c.characterClass }}</div>
+      </div>
+    </li>
+  </ul>
 
 
 
